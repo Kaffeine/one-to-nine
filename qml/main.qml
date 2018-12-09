@@ -13,13 +13,33 @@ ApplicationWindow {
     title: qsTr("One to Nine")
 
     header: ToolBar {
-        ToolButton {
-            text: "<"
+        Label {
+            anchors.centerIn: parent
+            text: {
+                var seconds = gameTimer.seconds % 60
+                var minutes = Math.floor(gameTimer.seconds / 60)
+                if (seconds < 10) {
+                    seconds = "0" + seconds
+                }
+
+                return minutes + ":" + seconds
+            }
         }
     }
 
     property int inset: width / 11
     property int draftCode: -1
+
+    Timer {
+        id: gameTimer
+        property int seconds: 0
+        interval: 1000
+        repeat: true
+        running: !gameFinished
+        onTriggered: {
+            ++seconds
+        }
+    }
 
     QtObject {
         id: settings
@@ -40,8 +60,10 @@ ApplicationWindow {
     Rectangle {
         color: Material.color(Material.Green)
         anchors.fill: parent
-        opacity: field.state == Field.StateEnded
+        visible: gameFinished
     }
+
+    property bool gameFinished: field.state == Field.StateEnded
 
     Pane {
         id: boardPane
