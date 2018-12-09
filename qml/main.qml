@@ -27,7 +27,7 @@ ApplicationWindow {
         }
     }
 
-    property int inset: width / 11
+    property int inset: 12
     property int draftCode: -1
 
     Timer {
