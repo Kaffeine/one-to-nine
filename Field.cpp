@@ -29,7 +29,7 @@ Field::Field() :
             connect(cell, &Cell::digitChanged, this, &Field::onCellDigitChanged);
         }
     }
-    // level 1
+    // level 1, easy
     QVector<int> predefined =
     {
         0, 0, 4,  0, 8, 0,  3, 0, 0,
@@ -59,6 +59,8 @@ Field::Field() :
 //        0, 0, 0,  0, 0, 0,  0, 0, 0,
 //        0, 0, 0,  0, 0, 0,  0, 0, 0,
 //    };
+
+    // Hard
 //    QVector<int> predefined =
 //    {
 //        0, 0, 0,  0, 9, 7,  0, 0, 6,
