@@ -44,7 +44,7 @@ ApplicationWindow {
     }
 
     Pane {
-        id: board
+        id: boardPane
         anchors.left: parent.left
         anchors.leftMargin: inset
         anchors.right: parent.right
@@ -53,100 +53,26 @@ ApplicationWindow {
         height: width
         Material.elevation: 6
 
-        property var activeCell: field.cellAt(board.activeCellX, board.activeCellY)
-        property bool canDraw: board.activeCell && !board.activeCell.predefined
-
-        property int activeCellX: -1
-        property int activeCellY: -1
-
-        property int highlightedDigit: activeCell ? activeCell.digit : 0
-        property bool draftMode: false
-
-        Item {
-            id: cellContainer
+        BoardItem {
+            id: board
             anchors.fill: parent
             anchors.margins: 10
-            property real windowProportion: width / height
-            property real fieldProportion: field.width * 1.0 / field.height
-            property real fixupFactor: windowProportion > fieldProportion ? 1 : windowProportion / fieldProportion
-            property int preferredSize: height / field.height * fixupFactor
 
+            property var activeCell: field.cellAt(board.activeCellX, board.activeCellY)
+            property bool canDraw: board.activeCell && !board.activeCell.predefined
 
-            Rectangle {
-                border.width: 2
-                border.color: settings.borderColor
-                anchors.fill: parent
-                color: "transparent"
-            }
+            property int activeCellX: -1
+            property int activeCellY: -1
 
-            Rectangle {
-                width: parent.width
-                height: 2
-                color: settings.borderColor
-                y: cellContainer.preferredSize * 3
-            }
-            Rectangle {
-                width: parent.width
-                height: 2
-                color: settings.borderColor
-                y: cellContainer.preferredSize * 6
-            }
-            Rectangle {
-                height: parent.height
-                width: 2
-                color: settings.borderColor
-                x: cellContainer.preferredSize * 3
-            }
-            Rectangle {
-                height: parent.height
-                width: 2
-                color: settings.borderColor
-                x: cellContainer.preferredSize * 6
-            }
-
-            Grid {
-                id: fieldItem
-                anchors.centerIn: parent
-
-                columns: 9
-                Repeater {
-                    id: cellRepeater
-                    model: 9 * 9
-
-                    CellItem {
-                        logicalX: index % 9
-                        logicalY: index / 9
-                        cell: field.cellAt(logicalX, logicalY)
-                        size: cellContainer.preferredSize
-                        highlighted: {
-                            var match = 0
-                            if (board.activeCellX == logicalX) {
-                                match += 1
-                            }
-                            if (board.activeCellY == logicalY) {
-                                match += 1
-                            }
-                            return match
-                        }
-
-                        onClicked: {
-//                            if (cell.predefined) {
-
-//                            }
-
-                            board.activeCellX = logicalX
-                            board.activeCellY = logicalY
-                        }
-                    }
-                }
-            }
+            property int highlightedDigit: activeCell ? activeCell.digit : 0
+            property bool draftMode: false
         }
     }
 
     Pane {
         id: alphabet
         enabled: board.canDraw
-        anchors.top: board.bottom
+        anchors.top: boardPane.bottom
         anchors.topMargin: inset
         anchors.horizontalCenter: parent.horizontalCenter
         Material.elevation: 3

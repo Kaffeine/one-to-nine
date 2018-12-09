@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
+        <file>qml/BoardItem.qml</file>
         <file>qml/CellItem.qml</file>
         <file>draw-calligraphic.svg</file>
     </qresource>
