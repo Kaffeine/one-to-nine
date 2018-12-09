@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
 import GameComponents 1.0
@@ -74,12 +75,11 @@ ApplicationWindow {
         y: inset
         height: width
         Material.elevation: 6
+        padding: 0
 
         BoardItem {
             id: board
             anchors.fill: parent
-            anchors.margins: 10
-
             property var activeCell: field.cellAt(board.activeCellX, board.activeCellY)
             property bool canDraw: board.activeCell && !board.activeCell.predefined
 
@@ -93,14 +93,18 @@ ApplicationWindow {
 
     Pane {
         id: alphabet
-        enabled: board.canDraw
         anchors.top: boardPane.bottom
-        anchors.topMargin: inset
+        anchors.topMargin: 18
         anchors.horizontalCenter: parent.horizontalCenter
-        Material.elevation: 3
-        Grid {
+        Material.elevation: 6
+
+        GridLayout {
+            id: buttonsPad
+            anchors.fill: parent
+            enabled: board.canDraw
             columns: 5
-            spacing: 2
+            rowSpacing: 2
+            columnSpacing: 2
             Repeater {
                 model: 10
                 Button {
@@ -109,6 +113,7 @@ ApplicationWindow {
                     flat: true
                     down: board.canDraw && digit == board.highlightedDigit
                     checkable: draft
+                    Layout.preferredHeight: width
                     property int digit: index + 1
 
                     text: draft ? "" : digit
