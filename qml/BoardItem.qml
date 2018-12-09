@@ -6,37 +6,6 @@ Item {
     property real fixupFactor: windowProportion > 1 ? 1 : windowProportion / 1
     property int preferredSize: height / field.height * fixupFactor
 
-    Rectangle {
-        border.width: 2
-        border.color: settings.borderColor
-        anchors.fill: parent
-        color: "transparent"
-        Rectangle {
-            width: parent.width
-            height: 2
-            color: settings.borderColor
-            y: cellContainer.preferredSize * 3
-        }
-        Rectangle {
-            width: parent.width
-            height: 2
-            color: settings.borderColor
-            y: cellContainer.preferredSize * 6
-        }
-        Rectangle {
-            height: parent.height
-            width: 2
-            color: settings.borderColor
-            x: cellContainer.preferredSize * 3
-        }
-        Rectangle {
-            height: parent.height
-            width: 2
-            color: settings.borderColor
-            x: cellContainer.preferredSize * 6
-        }
-    }
-
     Grid {
         id: fieldItem
         anchors.centerIn: parent
@@ -67,6 +36,39 @@ Item {
                     board.activeCellY = logicalY
                 }
             }
+        }
+    }
+
+    Rectangle {
+        anchors.centerIn: parent
+        border.width: 2
+        border.color: settings.borderColor
+        width: cellContainer.preferredSize * 9
+        height: cellContainer.preferredSize * 9
+        color: "transparent"
+        Rectangle {
+            width: parent.width
+            height: 2
+            color: settings.borderColor
+            y: cellContainer.preferredSize * 3
+        }
+        Rectangle {
+            width: parent.width
+            height: 2
+            color: settings.borderColor
+            y: cellContainer.preferredSize * 6
+        }
+        Rectangle {
+            height: parent.height
+            width: 2
+            color: settings.borderColor
+            x: cellContainer.preferredSize * 3
+        }
+        Rectangle {
+            height: parent.height
+            width: 2
+            color: settings.borderColor
+            x: cellContainer.preferredSize * 6
         }
     }
 }

@@ -44,7 +44,8 @@ Item {
 
         visible: true
         anchors.fill: parent
-        anchors.margins: rectMargin
+        border.width: 1
+        border.color: settings.borderColor
     }
 
     Text {
